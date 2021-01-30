@@ -6,21 +6,26 @@
 
 	<!-- 회원가입 -->
 	<insert id="memberJoin">
-		insert into book_member
-		(memberId,memberPw,memberName,memberMail,memberAddr1,memberAddr2,memberAddr3,adminCk,money,point)
-		values(#{memberId}, #{memberPw}, #{memberName}, #{memberMail}, #{memberAddr1}, #{memberAddr2}, #{memberAddr3}, 0, 100000, 5000);
+		INSERT INTO book_member
+		(MEMBERID, MEMBERPW, MEMBERNAME,MEMBERMAIL,MEMBERADDR1,MEMBERADDR2,MEMBERADDR3,ADMINCK,MONEY,POINT)
+		VALUES
+		(#{memberId}, #{memberPw}, #{memberName}, #{memberMail}, #{memberAddr1}, #{memberAddr2}, #{memberAddr3}, 0, 100000, 5000);
 	</insert>
-	
+
 	<!-- 아이디 중복검사 -->
 	<select id="idCheck" resultType="int">
-		select count(*) from book_member where memberId = #{memberId}
+		SELECT COUNT(*) FROM book_member
+		WHERE MEMBERID = #{memberId}
 	</select>
-	
+
 	<!-- 로그인 -->
 	<select id="memberLogin" resultType="com.shopping.model.MemberVO">
-		
-		SELECT MEMBERID, MEMBERNAME, ADMINCK, MONEY, POINT FROM book_member 
-		WHERE MEMBERID = #{memberId} AND MEMBERPW = #{memberPw}	
+
+		<!-- SELECT MEMBERID, MEMBERNAME, ADMINCK, MONEY, POINT FROM book_member 
+			WHERE MEMBERID = #{memberId} AND MEMBERPW = #{memberPw} -->
+
+		select memberId, memberPw, memberName, adminck, money, point from book_member where memberId = #{memberId}
+
 	</select>
 
 </mapper>
